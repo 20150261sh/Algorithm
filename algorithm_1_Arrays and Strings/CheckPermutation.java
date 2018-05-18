@@ -1,3 +1,7 @@
+/* CRACKING the CODING INTERVIEW
+1. Arrays and Strings
+1-2) Check Permutation: Given two strings,write a method to decide if one is a permutation of the other. */
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 
