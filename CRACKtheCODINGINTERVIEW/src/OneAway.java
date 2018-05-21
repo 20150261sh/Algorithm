@@ -20,7 +20,7 @@ public class OneAway {
 		char[] a2 = s2.toCharArray();
 		int i = 0, j = 0;
 		while (true) {
-			if (j == a1.length)
+			if (j + 1 == a1.length)
 				break;
 			if (a2[i] == a1[j]) {
 				i++;
@@ -62,7 +62,7 @@ public class OneAway {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		OneZeroAway("pales", "pale");
+		OneZeroAway("pale", "pales");
 	}
 
 }
