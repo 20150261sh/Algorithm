@@ -58,7 +58,7 @@ public class FixedStack {
 		}
 		else {
 			System.out.println("pop: " + stackNum + " Stack is empty");
-			return -10000000;
+			return -100000000;
 		}
 	}
 
