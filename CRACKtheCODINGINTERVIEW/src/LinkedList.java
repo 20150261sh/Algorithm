@@ -1,3 +1,6 @@
+/* CRACKING the CODING INTERVIEW
+2. Linked Lists */
+
 import java.awt.List;
 import java.util.Enumeration;
 import java.util.Hashtable;
