@@ -8,6 +8,7 @@ import java.util.Stack;
 public class LinkedList {
 	private Node head = null;
 	private Node tail = null;
+	// private Node loop = null;
 	private int size = 0;
 
 	private class Node {
@@ -25,6 +26,10 @@ public class LinkedList {
 			System.out.print("Linked List is empty.");
 			return;
 		}
+		// if (this.loop != null) {
+		// this.printLoopList();
+		// return;
+		// }
 		Node tmpNode = head;
 		System.out.print("( ");
 		while (tmpNode != null) {
@@ -37,37 +42,80 @@ public class LinkedList {
 		System.out.print(")");
 	}
 
+	// void printLoopList() {
+	// System.out.println("This List is Loop List");
+	// Node tmpNode = head;
+	// System.out.print("( ");
+	// while (tmpNode != loop) {
+	// System.out.print(tmpNode.data + " -> ");
+	// tmpNode = tmpNode.next;
+	// }
+	// for(int i = 0; i < 3; i++) {
+	// while(true) {
+	// System.out.print(tmpNode.data + " -> ");
+	// tmpNode = tmpNode.next;
+	// if(tmpNode == loop)
+	// break;
+	// }
+	// }
+	// System.out.print(" ... )");
+	// }
+
 	int getSize() {
 		return size;
 	}
 
-	void appendToHead(int input) {
+	void appendValToHead(int input) {
 		Node newNode = new Node(input);
-		if (head == null) {
+		if (size == 0) {
 			head = newNode;
 			tail = newNode;
 		} else {
 			newNode.next = head;
 			head = newNode;
-			Node tmpNode = head;
-			while (tmpNode.next != null)
-				tmpNode = tmpNode.next;
-			tail = tmpNode;
 		}
 		size++;
 	}
 
-	void appendToTail(int input) {
+	void appendValToTail(int input) {
 		Node newNode = new Node(input);
 
 		if (size == 0)
-			appendToHead(input);
+			appendValToHead(input);
 		else {
 			tail.next = newNode;
 			tail = newNode;
 			size++;
 		}
+	}
 
+	void appendNodeToHead(Node newNode) {
+		if (newNode == null) {
+			System.out.println("Input node is empty!");
+			return;
+		}
+		if (size == 0) {
+			head = newNode;
+			tail = newNode;
+		} else {
+			newNode.next = head;
+			head = newNode;
+		}
+		size++;
+	}
+
+	void appendNodeToTail(Node newNode) {
+		if (newNode == null) {
+			System.out.println("Input node is empty!");
+			return;
+		}
+		if (size == 0)
+			appendNodeToHead(newNode);
+		else {
+			tail.next = newNode;
+			tail = newNode;
+		}
+		size++;
 	}
 
 	Node getNode(int findNum) {
@@ -198,7 +246,7 @@ public class LinkedList {
 				int insert = delNode.data;
 				tmpNode = tmpNode.next;
 				this.deleteNode(delNode);
-				this.appendToHead(insert);
+				this.appendValToHead(insert);
 			} else
 				tmpNode = tmpNode.next;
 		}
@@ -211,12 +259,17 @@ public class LinkedList {
 	 * the two numbers and returns the sum as a linked list.
 	 */
 	static LinkedList sumLists(LinkedList l1, LinkedList l2) {
-		l1.printList();
-		System.out.print(" + ");
-		l2.printList();
-		System.out.print(". That is, " + converToInt(l1) + " + " + converToInt(l2) + ".\n");
-		int result = converToInt(l1) + converToInt(l2);
-		return convertToList(result);
+		if (l1 != null && l2 != null) {
+			l1.printList();
+			System.out.print(" + ");
+			l2.printList();
+			System.out.print(". That is, " + converToInt(l1) + " + " + converToInt(l2) + ".\n");
+			int result = converToInt(l1) + converToInt(l2);
+			return convertToList(result);
+		} else {
+			System.out.println("List must not be empty!");
+			return null;
+		}
 	}
 
 	static int converToInt(LinkedList l) {
@@ -243,10 +296,10 @@ public class LinkedList {
 
 		while (true) {
 			if (digit == 1) {
-				resList.appendToHead(result / digit);
+				resList.appendValToHead(result / digit);
 				break;
 			} else {
-				resList.appendToHead(result / digit);
+				resList.appendValToHead(result / digit);
 				result = result % digit;
 				digit /= 10;
 			}
@@ -262,12 +315,17 @@ public class LinkedList {
 	 * digits are stored in forward order. Repeat the above problem.
 	 */
 	static LinkedList sumListsFollowUp(LinkedList l1, LinkedList l2) {
-		l1.printList();
-		System.out.print(" + ");
-		l2.printList();
-		System.out.print(". That is, " + converToIntFollowUp(l1) + " + " + converToIntFollowUp(l2) + ".\n");
-		int result = converToIntFollowUp(l1) + converToIntFollowUp(l2);
-		return convertToListFollowUp(result);
+		if (l1 != null && l2 != null) {
+			l1.printList();
+			System.out.print(" + ");
+			l2.printList();
+			System.out.print(". That is, " + converToIntFollowUp(l1) + " + " + converToIntFollowUp(l2) + ".\n");
+			int result = converToIntFollowUp(l1) + converToIntFollowUp(l2);
+			return convertToListFollowUp(result);
+		} else {
+			System.out.println("List must not be empty!");
+			return null;
+		}
 	}
 
 	static int converToIntFollowUp(LinkedList l) {
@@ -304,10 +362,10 @@ public class LinkedList {
 
 		while (true) {
 			if (digit == 1) {
-				resList.appendToTail(result / digit);
+				resList.appendValToTail(result / digit);
 				break;
 			} else {
-				resList.appendToTail(result / digit);
+				resList.appendValToTail(result / digit);
 				result = result % digit;
 				digit /= 10;
 			}
@@ -315,8 +373,13 @@ public class LinkedList {
 		return resList;
 	}
 
-	/* 2.6 Palindrome: Implement a function to check if a linked list is a palindrome. */
+	/*
+	 * 2.6 Palindrome: Implement a function to check if a linked list is a
+	 * palindrome.
+	 */
 	public boolean palindrome() {
+		if (this == null)
+			return false;
 		Stack<Integer> stack1 = new Stack<>();
 		Stack<Integer> stack2 = new Stack<>();
 		Node tmpNode = head;
@@ -343,8 +406,7 @@ public class LinkedList {
 			}
 			for (i = arr.length - 1; i > -1; i--)
 				stack2.push(arr[i]);
-		} 
-		else {
+		} else {
 			mid2 = size / 2;
 			mid1 = mid2 - 1;
 			int cmp1 = 0, cmp2 = 0;
@@ -390,29 +452,169 @@ public class LinkedList {
 		return true;
 	}
 
+	/*
+	 * 2.7 Intersection: Given two (singly) linked lists, determine if the two lists
+	 * intersect. Return the intersecting node. Note that the intersection is
+	 * defined based on reference, not value. That is, if the kth node of the first
+	 * linked list is the exact same node (by reference) as the jth node of the
+	 * second linked list, then they are intersecting
+	 */
+	static Node intersection(LinkedList l1, LinkedList l2) {
+		if (l1.tail == l2.tail) {
+			if (l1.size == l2.size) {
+				Node tmpNode1 = l1.head;
+				Node tmpNode2 = l2.head;
+				Node[] arr1 = new Node[l1.size];
+				Node[] arr2 = new Node[l1.size];
+				for (int i = 0; i < arr1.length; i++) {
+					arr1[i] = tmpNode1;
+					arr2[i] = tmpNode2;
+					if (tmpNode1.next != null && tmpNode2.next != null) {
+						tmpNode1 = tmpNode1.next;
+						tmpNode2 = tmpNode2.next;
+					}
+				}
+
+				for (int i = arr1.length - 1; i > -1; i--) {
+					if (arr1[i] != arr2[i])
+						return arr1[i + 1];
+				}
+			} else {
+				int size = 0;
+				if (l1.size > l2.size) {
+					size = l1.size;
+					Node tmpNode1 = l1.head;
+					Node tmpNode2 = l2.head;
+					Node[] arr1 = new Node[size];
+					Node[] arr2 = new Node[size];
+					int i, j;
+					for (i = 0; i < arr1.length; i++) {
+						arr1[i] = tmpNode1;
+						if (tmpNode1.next != null)
+							tmpNode1 = tmpNode1.next;
+					}
+					for (j = l2.size - 1; j < arr2.length; j++) {
+						arr2[j] = tmpNode2;
+						if (tmpNode2.next != null)
+							tmpNode2 = tmpNode2.next;
+					}
+					i = arr1.length - 1;
+					j = arr2.length - 1;
+					while (i > -1 && j > -1) {
+						if (arr1[i] != arr2[j])
+							return arr1[i + 1];
+						i--;
+						j--;
+					}
+				} else {
+					size = l2.size;
+					Node tmpNode1 = l2.head;
+					Node tmpNode2 = l1.head;
+					Node[] arr1 = new Node[size];
+					Node[] arr2 = new Node[size];
+					int i, j;
+					for (i = 0; i < arr1.length; i++) {
+						arr1[i] = tmpNode1;
+						if (tmpNode1.next != null)
+							tmpNode1 = tmpNode1.next;
+					}
+					for (j = l1.size - 1; j < arr2.length; j++) {
+						arr2[j] = tmpNode2;
+						if (tmpNode2.next != null)
+							tmpNode2 = tmpNode2.next;
+					}
+					i = arr1.length - 1;
+					j = arr2.length - 1;
+					while (i > -1 && j > -1) {
+						if (arr1[i] != arr2[j])
+							return arr1[i + 1];
+						i--;
+						j--;
+					}
+				}
+
+			}
+		} else {
+			System.out.println("Not Intersection!");
+			return null;
+		}
+		System.out.println("Not Intersection!");
+		return null;
+	}
+
+	/*
+	 * 2.8 Loop Detection: Given a circular linked list, implement an algorithm that
+	 * returns the node at the beginning of the loop.
+	 */
+	void setListToCir() {
+		Node loop = head;
+
+		for (int i = 0; i < 2; i++)
+			loop = loop.next;
+		tail.next = loop;
+	}
+
+	Node detectLoop() {
+		if (tail.next == null)
+			return null;
+		else
+			return tail.next;
+	}
+	
+	boolean HareAndTortoise() {
+		Node hare = head;
+		Node tor = head;
+		
+		while(hare != null && hare.next != null) {
+			hare = hare.next.next;
+			tor = tor.next;
+			if(hare == tor)
+				return true;
+		}
+		return false;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LinkedList list1 = new LinkedList();
-		list1.appendToTail(6);
-		list1.appendToTail(1);
-		list1.appendToTail(6);
-		list1.printList();
+		LinkedList list2 = new LinkedList();
+		list2.appendValToTail(3);
+		list2.appendValToTail(4);
+		list2.appendValToTail(5);
+		list2.appendValToTail(6);
+		list2.appendValToTail(7);
+		list2.appendValToTail(8);
+		list2.printList();
 		System.out.println();
-		//System.out.println(list1.palindrome());
 
-		// LinkedList list2 = new LinkedList();
-		// list2.appendToTail(2);
-		// list2.appendToTail(9);
-		// list2.appendToTail(5);
-
+		// LinkedList list1 = new LinkedList();
+		// list1.appendValToTail(1);
+		// list1.appendValToTail(2);
+		// list1.appendNodeToTail(list2.getNode(1));
+		// list1.appendNodeToTail(list2.getNode(2));
+		// list1.appendNodeToTail(list2.getNode(3));
 		// list1.printList();
 		// System.out.println();
-		// list2.printList();
-		// System.out.println();
 
+		/* 2.5 */
 		// LinkedList resList = sumListsFollowUp(list1, list2);
 		// resList.printList();
 		// System.out.println(". That is, " + converToIntFollowUp(resList) + ".");
-	}
 
+		/* 2.6 */
+		// System.out.println(list1.palindrome());
+
+		/* 2.7 */
+		// Node res = null;
+		// if ((res = intersection(list2, list1)) != null) {
+		// System.out.println("Intersection node data is " + res.data);
+		// } else
+		// 
+		
+		/* 2.8 */
+		// System.out.println("Set Loop List...(index: +2node)\n");
+		// list2.setListToCir();
+		// System.out.println("Node at the beginning of the loop is " +
+		// list2.detectLoop().data);
+
+	}
 }
