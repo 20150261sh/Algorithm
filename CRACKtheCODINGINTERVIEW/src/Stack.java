@@ -1,6 +1,6 @@
 /* CRACKING the CODING INTERVIEW
-3. Stacks and Queues
-3-2) Stack Min: How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element? Push, pop and min should all operate in 0(1) time.  */
+3. Stacks and Queues 
+3-0) Implement stack class */
 
 public class Stack {
 	private int capacity;
