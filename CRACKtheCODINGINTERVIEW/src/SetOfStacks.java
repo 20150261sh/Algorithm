@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class SetOfStacks {
 	LinkedList setList = new LinkedList();
+	private int stackNum = 0;
 
 	public void print() {
 		LinkedList.Node tmpNode = setList.tail;
@@ -17,10 +18,14 @@ public class SetOfStacks {
 	}
 
 	public void push(int input) {
-		if (setList.size == 0)
+		if (setList.size == 0) {
 			setList.appendToTail();
-		else if(setList.cur.spr.isFull()) 
+			stackNum++;
+		}
+		else if(setList.cur.spr.isFull()) {
 			setList.appendToTail();
+			stackNum++;
+		}
 		setList.cur.spr.push(input);
 	}
 	
@@ -32,7 +37,20 @@ public class SetOfStacks {
 			return setList.cur.spr.pop();
 		}
 	}
-
+	
+	/* FOLLOW UP: Implement a function popAt (int index) which performs a pop operation on a specific sub-stack. */
+	public int popAt(int index) {
+		int tmpNum = stackNum;
+		LinkedList.Node tmpNode = setList.tail;
+		
+		while(tmpNum != index) {
+			tmpNum--;
+			tmpNode = tmpNode.before;
+		}
+		int del = tmpNode.spr.pop();
+		return del;
+	}
+	
 	public class LinkedList {
 		private Node head = null;
 		private Node tail = null;
@@ -167,6 +185,12 @@ public class SetOfStacks {
 		set.push(4);
 		set.push(5);
 		set.push(6);
+		set.print();
+		set.popAt(1);
+		set.print();
+		set.popAt(2);
+		set.print();
+		set.popAt(3);
 		set.print();
 	}
 
