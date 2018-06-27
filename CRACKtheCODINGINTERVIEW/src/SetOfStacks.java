@@ -23,7 +23,7 @@ public class SetOfStacks {
 			setList.appendToTail();
 		setList.cur.spr.push(input);
 	}
-
+	
 	public int pop() {
 		if (setList.size == 0) {
 			System.out.println("All stack is empty");
