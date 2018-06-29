@@ -25,7 +25,7 @@ public class URLify {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Input string: ");
 		String input = scan.nextLine();
-		System.out.println("# Output #");
+		System.out.println("\n# Output #");
 		System.out.println(Replace(input));
 	}
 
