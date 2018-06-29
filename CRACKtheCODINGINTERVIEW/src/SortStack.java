@@ -1,3 +1,9 @@
+/* CRACKING the CODING INTERVIEW
+3. Stacks and Queues
+3-5) Sort Stack: Write a program to sort a stack such that the smallest items are on the top. You can use
+an additional temporary stack, but you may not copy the elements into any other data structure
+(such as an array). The stack supports the following operations: push, pop, peek, and is Empty.*/
+
 class SStack {
 	int capacity;
 	int top = -1;
@@ -55,9 +61,14 @@ public class SortStack {
 			if (tmp.isEmpty())
 				tmp.push(s.pop());
 			else {
-				int sDel;
-				while ((sDel = s.pop()) <= tmp.peek() || !tmp.isEmpty()) {
-					s.push(tmp.pop());
+				int sDel = s.pop();
+				while (true) {
+					if(tmp.isEmpty())
+						break;
+					if(sDel <= tmp.peek()) 
+						s.push(tmp.pop()); 
+					else
+						break;
 				}
 				tmp.push(sDel);
 			}
@@ -69,11 +80,15 @@ public class SortStack {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SStack s = new SStack(4);
+		SStack s = new SStack(8);
 		s.push(3);
 		s.push(2);
 		s.push(5);
 		s.push(1020);
+		s.push(1);
+		s.push(445);
+		s.push(12);
+		s.push(30);
 		s.printStack();
 		sortStack(s);
 		s.printStack();
